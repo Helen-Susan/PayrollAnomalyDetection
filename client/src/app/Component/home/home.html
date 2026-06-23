@@ -1,0 +1,73 @@
+<div class="main-container">
+
+  <!-- LEFT SIDEBAR -->
+  <app-sidebar></app-sidebar>
+
+  <!-- RIGHT CONTENT -->
+  <div class="content">
+
+    <div class="welcome-card">
+
+      <h1>Welcome Back</h1>
+
+      <p>
+        Monitor payroll anomalies and system activity.
+      </p>
+      
+    </div>
+   
+
+    <div class="anomaly-section">
+
+      <h2 class="section-title">
+        Recent Anomalies
+      </h2>
+
+      <div class="cards-grid">
+
+        <div *ngFor="let item of recentAnomalies"
+             class="anomaly-card">
+
+          <div class="card-header">
+
+            <span class="severity-badge"
+                  [ngClass]="item.severity?.toLowerCase()">
+
+              {{ item.severity }}
+
+            </span>
+
+          </div>
+
+          <h3>
+            🚨 {{ item.anomalyType }}
+          </h3>
+
+          <div class="info-row">
+            <span>Cycle</span>
+            <strong>{{ item.cycleId }}</strong>
+          </div>
+
+          <div class="info-row">
+            <span>Employee</span>
+            <strong>
+              {{ item.employee_Id || 'N/A' }}
+            </strong>
+          </div>
+
+          <div class="info-row">
+            <span>Department</span>
+            <strong>
+              {{ item.department || 'All Departments' }}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

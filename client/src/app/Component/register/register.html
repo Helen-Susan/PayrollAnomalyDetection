@@ -1,0 +1,96 @@
+<div class="register-page">
+
+   LOGO 
+
+  <div class="logo-section">
+
+    <div class="logo-box">
+      ✓
+    </div>
+
+    <h1>Payroll</h1>
+
+  </div>
+
+   
+
+  <div class="register-card">
+
+    <div class="icon-circle">
+      +
+    </div>
+
+    <h2>Create Your Account</h2>
+
+    <p>
+      Join PayrollPro and simplify your payroll management.
+    </p>
+
+    <form #registerForm="ngForm"
+          (ngSubmit)="register()">
+
+
+
+      <div class="input-group">
+
+        <label>Full Name</label>
+
+        <input type="text"
+               name="name"
+               [(ngModel)]="registerData.name"
+               placeholder="Enter your full name">
+
+      </div>
+
+
+
+      <div class="input-group">
+
+        <label>Email Address</label>
+
+        <input type="email"
+               name="email"
+               [(ngModel)]="registerData.email"
+               placeholder="Enter your email address">
+
+      </div>
+      <div class="error-text">
+        {{emailError}}
+      </div>
+
+      <div class="input-group">
+
+        <label>Password</label>
+
+        <input type="password"
+               name="password"
+               [(ngModel)]="registerData.password"
+               placeholder="Enter your password">
+
+      </div>
+      <div class="error-text">
+        {{passwordError}}
+      </div>
+
+
+      <button type="submit"
+              class="register-btn">
+        Register
+      </button>
+      <div class="success-text">
+        {{successMessage}}
+      </div>
+
+    </form>
+
+    <div class="login-link">
+
+      Already have an account?
+
+      <span>Sign in</span>
+
+    </div>
+
+  </div>
+
+</div>

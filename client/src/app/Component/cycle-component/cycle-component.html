@@ -1,0 +1,81 @@
+<!--<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal" (click)="$event.stopPropagation()">
+
+    <div class="modal__header">
+      <div class="modal__title-group">
+        <span class="modal__cycle-id">{{ cycleId }}</span>
+        <h2 class="modal__title">Cycle Summary</h2>
+      </div>
+      <button class="modal__close" (click)="onClose()" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal__body">-->
+      <!-- Loading State -->
+      <!--<div *ngIf="isLoading" class="modal__loading">
+        <div class="spinner"></div>
+        <span>Fetching cycle details…</span>
+      </div>-->
+
+      <!-- Error State -->
+      <!--<div *ngIf="errorMessage && !isLoading" class="modal__error">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        {{ errorMessage }}
+      </div>-->
+
+      <!-- Summary Content -->
+      <!--<ng-container *ngIf="summary && !isLoading">
+        <div class="modal__stats">
+          <div class="stat-card">
+            <span class="stat-card__label">Total Amount</span>
+            <span class="stat-card__value">{{ summary.currency }}{{ summary.totalAmount | number:'1.0-0' }}</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__label">Employees</span>
+            <span class="stat-card__value">{{ summary.totalEmployees }}</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__label">Processed At</span>
+            <span class="stat-card__value stat-card__value--sm">{{ summary.processedAt | date:'dd MMM, HH:mm' }}</span>
+          </div>
+        </div>
+
+        <div class="modal__breakdown">
+          <h3 class="modal__section-title">Breakdown</h3>
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Employees</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of summary.breakdown">
+                <td>{{ row.category }}</td>
+                <td>{{ row.count }}</td>
+                <td>{{ summary.currency }}{{ row.amount | number:'1.0-0' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal__errors" *ngIf="summary.errors && summary.errors.length">
+          <h3 class="modal__section-title modal__section-title--error">Errors ({{ summary.errors.length }})</h3>
+          <ul class="error-list">
+            <li *ngFor="let err of summary.errors">{{ err }}</li>
+          </ul>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+</div>-->

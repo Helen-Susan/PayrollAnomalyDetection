@@ -1,0 +1,379 @@
+<!-- ======================================================
+     MAIN LAYOUT CONTAINER
+====================================================== -->
+
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <app-sidebar />
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <div class="topbar-actions">
+
+        <div class="profile-section">
+
+          <div class="avatar">
+            {{ account.currentUser()?.displayName?.charAt(0) }}
+          </div>
+
+          <div class="user-info">
+
+            <h4>
+              {{ account.currentUser()?.displayName }}
+            </h4>
+
+            <span>
+              HR Manager
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <section class="page-content">
+
+      <!-- ==========================================
+           UPLOAD SECTION
+      ========================================== -->
+
+      <div class="top-grid">
+
+        <div class="upload-card"
+             [class.dragging]="isDragging"
+             (dragover)="onDragOver($event)"
+             (dragleave)="onDragLeave($event)"
+             (drop)="onDrop($event)">
+
+          <input #fileInput
+                 type="file"
+                 accept=".csv"
+                 hidden
+                 (change)="onFileSelected($event)">
+
+          <div class="upload-icon">
+            ☁
+          </div>
+
+          <h2>
+            Drag & Drop Files Here
+          </h2>
+
+          <p>
+            Your files will be automatically scanned
+            for errors and formatted for the payroll engine.
+          </p>
+
+          <button type="button"
+                  class="browse-btn"
+                  (click)="fileInput.click()">
+
+            Browse Files
+
+          </button>
+
+          <small>
+            Maximum file size: 50 MB
+          </small>
+
+        </div>
+
+        <!-- RULES -->
+
+        <div class="rules-card">
+
+          <h3>
+            Upload Guidelines
+          </h3>
+
+          <ul>
+
+            <li>
+              Ensure Employee IDs match global registry.
+            </li>
+
+            <li>
+              Column headers must use standard naming.
+            </li>
+
+            <li>
+              Currency values must include symbols.
+            </li>
+
+            <li>
+              File format must be CSV.
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+      <!-- ==========================================
+           RECENT ACTIVITY
+      ========================================== -->
+
+      <div class="activity-card">
+
+        <div class="activity-header">
+
+          <h3>
+            Recent Activity
+          </h3>
+
+          <button>
+            View All History
+          </button>
+
+        </div>
+
+        <!-- FILTERS -->
+
+        <div class="filter-bar">
+
+          <button *ngFor="let filter of filters"
+                  class="filter-btn"
+                  [class.active]="activeFilter === filter"
+                  (click)="setFilter(filter)">
+
+            {{ filter }}
+
+          </button>
+
+        </div>
+
+        <!-- TABLE -->
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>ID</th>
+
+              <th>File Name</th>
+
+              <th>Status</th>
+
+              <th>Summary</th>
+
+              <th>Action</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let cycle of filteredCycles">
+
+              <td>
+                {{ cycle.id }}
+              </td>
+
+              <td>
+                {{ cycle.fileName }}
+              </td>
+
+              <td>
+
+                <span class="status"
+                      [ngClass]="{
+                    'pending': cycle.status === 'Pending',
+                    'processing': cycle.status === 'Processed',
+                    'completed': cycle.status === 'Done',
+                    'error': cycle.status === 'Error'
+                  }">
+
+                  {{ cycle.status }}
+
+                </span>
+
+              </td>
+
+              <td>
+
+                <button class="summary-btn"
+                        type="button"
+                        (click)="openSummary(cycle.id)">
+
+                  📄 Summary
+
+                </button>
+
+              </td>
+
+              <td>
+
+                <button class="delete-btn"
+                        type="button",
+                        (click)="deleteCycle(cycle)"
+                        >
+
+                  🗑
+
+                </button>
+
+              </td>
+
+            </tr>
+
+            <tr *ngIf="filteredCycles.length === 0">
+
+              <td colspan="5"
+                  class="empty-state">
+
+                No uploaded files found.
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+      <div *ngIf="showSummaryModal"
+           class="modal-overlay">
+
+        <div class="summary-modal">
+
+          <div class="modal-header">
+
+            
+
+            <button type="button"
+                    class="close-btn"
+                    (click)="closeSummaryModal()">
+
+              ✕
+
+            </button>
+            <div class="summary-title">
+
+              <h2>
+                Payroll Analytics Summary
+              </h2>
+
+              <span>
+                {{ selectedSummary?.cycleId }}
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="summary-grid">
+
+            <div class="analytics-grid">
+
+              <div class="metric-card">
+
+                <div class="metric-label">
+                  Total Employees
+                </div>
+
+                <div class="metric-number">
+                  {{ selectedSummary?.totalEmployees }}
+                </div>
+
+              </div>
+
+              <div class="metric-card">
+
+                <div class="metric-label">
+                  Employees Paid
+                </div>
+
+                <div class="metric-number">
+                  {{ selectedSummary?.employeesPaid }}
+                </div>
+
+              </div>
+
+              <div class="metric-card">
+
+                <div class="metric-label">
+                  Pending Approvals
+                </div>
+
+                <div class="metric-number">
+                  {{ selectedSummary?.pendingApprovals }}
+                </div>
+
+              </div>
+
+              <div class="metric-card">
+
+                <div class="metric-label">
+                  Empty Calculations
+                </div>
+
+                <div class="metric-number">
+                  {{ selectedSummary?.emptyCalculations }}
+                </div>
+
+              </div>
+
+              <div class="metric-card">
+
+                <div class="metric-label">
+                  Duplicate Employees
+                </div>
+
+                <div class="metric-number">
+                  {{ selectedSummary?.duplicateEmployees }}
+                </div>
+
+              </div>
+
+              <div class="metric-card">
+
+                <div class="metric-label">
+                  Negative Salaries
+                </div>
+
+                <div class="metric-number">
+                  {{ selectedSummary?.negativeSalaries }}
+                </div>
+
+              </div>
+
+              <div class="metric-card">
+
+                <div class="metric-label">
+                  High Salary Anomalies
+                </div>
+
+                <div class="metric-number">
+                  {{ selectedSummary?.highSalaryAnomalies }}
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

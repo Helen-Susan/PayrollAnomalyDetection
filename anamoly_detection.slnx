@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="anamoly_detection_api/anamoly_detection_api.csproj" />
+  <Project Path="UnitTest/UnitTest.csproj" Id="19c20d96-3211-4fb5-9ba7-016e4b2412fc" />
+</Solution>

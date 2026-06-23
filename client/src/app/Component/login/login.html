@@ -1,0 +1,224 @@
+<div class="login-wrapper">
+  <div class="left-panel">
+    <div class="brand">...</div>
+
+    <div class="form-container">
+      <div class="form-header">
+        <h1 class="form-title">Welcome back</h1>
+        <p class="form-subtitle">Sign in to manage your payroll dashboard</p>
+      </div>
+
+      @if(account.currentUser()) {
+
+      <app-home />
+
+      }
+
+      @else {
+
+      @if(registerpage()) {
+
+      <app-register></app-register>
+
+      }
+
+      @else {
+
+      <form #loginForm="ngForm"
+            class="login-form"
+            (ngSubmit)="login()">
+
+        <!-- Email Field -->
+
+        <div class="field-group">
+
+          <label class="field-label" for="email">
+            Work Email
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none">
+
+                <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linejoin="round" />
+
+                <path d="M22 7l-10 7L2 7"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round" />
+
+              </svg>
+
+            </span>
+
+            <input id="email"
+                   type="email"
+                   class="form-input"
+                   placeholder="you@company.com"
+                   [(ngModel)]="LoginData.email"
+                   name="email" />
+
+          </div>
+
+        </div>
+
+        <!-- Password Field -->
+
+        <div class="field-group">
+
+          <label class="field-label" for="password">
+            Password
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none">
+
+                <rect x="3"
+                      y="11"
+                      width="18"
+                      height="11"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="1.8" />
+
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round" />
+
+              </svg>
+
+            </span>
+
+            <input id="password"
+                   type="password"
+                   class="form-input"
+                   placeholder="••••••••"
+                   [(ngModel)]="LoginData.password"
+                   name="password" />
+
+          </div>
+
+        </div>
+
+        <!-- Login Button -->
+
+        <button type="submit"
+                class="btn-login">
+
+          Sign In
+
+        </button>
+
+      </form>
+
+      <!-- Register Section -->
+
+      <div class="register-section">
+
+        <p>New to PayrollPro?</p>
+
+        <button type="button"
+                class="btn-register"
+                (click)="showRegisterMode()">
+
+          Create an account
+
+        </button>
+
+      </div>
+
+      }
+
+      }
+
+    </div><!-- /.form-container ← was missing -->
+  </div><!-- /.left-panel ← was missing -->
+  <!-- RIGHT PANEL: Payroll Illustration -->
+  <div class="right-panel">
+    <div class="rp-overlay"></div>
+    <div class="rp-content">
+
+      <!-- Floating stat cards -->
+      <div class="stat-card card-salary">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+          <span class="stat-label">Total Payroll</span>
+          <span class="stat-value">₹24,56,000</span>
+          <span class="stat-change up">+4.2% this month</span>
+        </div><!-- /.stat-info -->
+      </div><!-- /.stat-card -->
+
+      <div class="stat-card card-employees">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <span class="stat-label">Active Employees</span>
+          <span class="stat-value">1,248</span>
+          <span class="stat-change up">+12 new hires</span>
+        </div><!-- /.stat-info -->
+      </div><!-- /.stat-card -->
+
+      <div class="stat-card card-pending">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-info">
+          <span class="stat-label">Pending Approvals</span>
+          <span class="stat-value">7</span>
+          <span class="stat-change neutral">Due by Jun 1</span>
+        </div><!-- /.stat-info -->
+      </div><!-- /.stat-card -->
+      <!-- Mini bar chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <span class="chart-title">Payroll Disbursed</span>
+          <span class="chart-period">Last 6 months</span>
+        </div><!-- /.chart-header -->
+        <div class="bar-chart">
+          <div class="bar-group">
+            <div class="bar" style="height:55%"><span class="bar-label">Dec</span></div>
+          </div>
+          <div class="bar-group">
+            <div class="bar" style="height:65%"><span class="bar-label">Jan</span></div>
+          </div>
+          <div class="bar-group">
+            <div class="bar" style="height:72%"><span class="bar-label">Feb</span></div>
+          </div>
+          <div class="bar-group">
+            <div class="bar" style="height:60%"><span class="bar-label">Mar</span></div>
+          </div>
+          <div class="bar-group">
+            <div class="bar" style="height:88%"><span class="bar-label">Apr</span></div>
+          </div>
+          <div class="bar-group">
+            <div class="bar active" style="height:100%"><span class="bar-label">May</span></div>
+          </div>
+        </div><!-- /.bar-chart -->
+      </div><!-- /.chart-card -->
+      <!-- Payroll run badge -->
+      <div class="run-badge">
+        <div class="run-dot"></div>
+        <span>Payroll run on <strong>May 30</strong> — 3 days left</span>
+      </div><!-- /.run-badge -->
+
+    </div><!-- /.rp-content -->
+    <!-- Tagline -->
+    <div class="rp-tagline">
+      <h2>Payroll,<br />simplified.</h2>
+      <p>Automate salaries, taxes &amp; compliance — all in one place.</p>
+    </div><!-- /.rp-tagline -->
+
+  </div><!-- /.right-panel -->
+</div><!-- /.login-wrapper -->
