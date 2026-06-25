@@ -12,6 +12,16 @@ export class AccountService {
   public currentUser = signal<User | null>(null);
   public loggedIn = signal(false);
   baseUrl = 'https://localhost:7083/';
+  constructor() {
+    const userString = localStorage.getItem('user');
+
+
+    if (userString) {
+      const user: User = JSON.parse(userString);
+      this.currentUser.set(user);
+    }
+  }
+
   login(loginData: any) {
     return this.http.post<LoginResponse>(
       `${this.baseUrl}auth/login`,

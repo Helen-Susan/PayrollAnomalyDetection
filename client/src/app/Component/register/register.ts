@@ -2,13 +2,13 @@ import { Component, inject,signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../../core/services/account-service';
-import { Router } from '@angular/router';
+import { Router,RouterModule } from '@angular/router';
 import { Login } from '../login/login';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './register.html',
   styleUrls: ['./register.css']
 })
@@ -40,6 +40,7 @@ export class Register {
     this.passwordError = '';
 
     this.successMessage = '';
+  
 
     /* EMAIL VALIDATION */
 

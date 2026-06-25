@@ -7,16 +7,7 @@
         <h1 class="form-title">Welcome back</h1>
         <p class="form-subtitle">Sign in to manage your payroll dashboard</p>
       </div>
-
-      @if(account.currentUser()) {
-
-      <app-home />
-
-      }
-
-      @else {
-
-      @if(registerpage()) {
+ @if(registerpage()) {
 
       <app-register></app-register>
 
@@ -144,7 +135,7 @@
 
       }
 
-      }
+      
 
     </div><!-- /.form-container ← was missing -->
   </div><!-- /.left-panel ← was missing -->
